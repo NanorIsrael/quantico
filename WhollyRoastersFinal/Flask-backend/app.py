@@ -1,12 +1,21 @@
-## update the import statement at the top
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.config['SECRET_KEY']='gs9df3nkj'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
+
+CORS(app)
+
+cors = CORS(app, resources={
+    r"/*": {
+        "origins": "*"
+    }
+})
+
+
 with app.app_context():
 
     class User(db.Model):
@@ -15,7 +24,7 @@ with app.app_context():
         password = db.Column(db.String(128))
 
         def __repr__(self):
-             return f'User {self.username}'
+            return f'User {self.username}'
 
     class ShippingInfo(db.Model):
         ship_id = db.Column(db.Integer, primary_key=True)
@@ -27,25 +36,15 @@ with app.app_context():
             return f"{self.full_name}'s address is {self.address}."
 
     db.create_all()
+    ShippingInfo.query.delete()
+    
     ship1 = ShippingInfo(full_name="Claudia Reyes", address="Amsterdam 210, CDMX, Mexico", user_id=2)
+
     ship2 = ShippingInfo(full_name="Roy Latte", address="Beau St, Bath BA1 1QY, UK", user_id=1)
+
     db.session.add(ship1)
     db.session.add(ship2)
-    db.session.commit()@app.route('/register', methods=['POST'])
-
-@app.route("/register", methods=["POST"])
-def register():
-    json_data = request.get_json()
-    user_match = User.query.filter_by(username=json_data['uname']).first()
-    if user_match:
-        return jsonify({'Message': 'User already exists!'})
-
-    new_user = User(username = json_data['uname'], password = json_data['pword'])
-    db.session.add(new_user)
     db.session.commit()
-
-    return jsonify({'Message': 'A new user was created!'}) 
-
 
 @app.route("/admin", methods=["GET"])
 def admin():
@@ -68,6 +67,19 @@ def admin():
         })
 
     return jsonify({
-        "users": users, 
-        "shippers": shippers
+        'users': users, 
+        'shippers': shippers
     })
+
+@app.route('/register', methods=['POST'])
+def register():
+    json_data = request.get_json()
+    match = User.query.filter_by(username=json_data['uname']).first()
+    if match:
+        return jsonify({'Message': 'User already exists!'})
+
+    us = User(username = json_data['uname'], password = json_data['pword'])
+    db.session.add(us)
+    db.session.commit()
+
+    return jsonify({'Message': 'A new user was created!'}) 
