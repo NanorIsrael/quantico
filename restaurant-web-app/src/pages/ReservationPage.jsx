@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Phone, Mail } from 'lucide-react';
-
+import ReservationSuccessDialog from '../components/ReservationSuccessDialog'
 
 function ReservationsPage() {
   const [formData, setFormData] = useState({
@@ -13,11 +13,13 @@ function ReservationsPage() {
     specialRequests: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
-    setTimeout(() => {
+    setIsSuccess(true)
+	setTimeout(() => {
       setSubmitted(false);
       setFormData({
         name: '',
@@ -46,14 +48,7 @@ function ReservationsPage() {
           <p className="text-lg text-stone-600">Reserve your table for an unforgettable dining experience</p>
         </div>
 
-        {submitted ? (
-          <div className="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg text-center">
-            <h3 className="text-2xl font-semibold text-green-800 mb-2">Reservation Confirmed!</h3>
-            <p className="text-green-700">
-              Thank you for your reservation. We'll send a confirmation email shortly.
-            </p>
-          </div>
-        ) : (
+        { (
           <div className="bg-white rounded-lg shadow-lg p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -216,6 +211,7 @@ function ReservationsPage() {
           </div>
         </div>
       </div>
+	  {isSuccess && <ReservationSuccessDialog openModal={true}/>}
     </div>
   );
 }
