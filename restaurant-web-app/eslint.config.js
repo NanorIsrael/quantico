@@ -1,29 +1,60 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import { defineConfig, globalIgnores } from 'eslint/config'
+// eslint.config.js
+import js from "@eslint/js";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
+import importPlugin from "eslint-plugin-import";
+import globals from "globals";
+import { defineConfig } from "eslint/config";
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  // --- 1) Ignore files globally ---
   {
-    files: ['**/*.{js,jsx}'],
+    ignores: ["vite.config.js"],
+  },
+
+  // --- 2) Main JS/JSX config ---
+  {
+    files: ["**/*.{js,jsx}"],
+
+    settings: {
+      "import/resolver": {
+        node: {
+          extensions: [".js", ".jsx"],
+        },
+        alias: {
+          map: [["@", "./src"]],
+          extensions: [".js", ".jsx"],
+        },
+      },
+    },
+
+    plugins: {
+      import: importPlugin,
+    },
+
     extends: [
       js.configs.recommended,
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
     ],
+
     languageOptions: {
-      ecmaVersion: 2020,
+      ecmaVersion: "latest",
       globals: globals.browser,
       parserOptions: {
-        ecmaVersion: 'latest',
         ecmaFeatures: { jsx: true },
-        sourceType: 'module',
+        sourceType: "module",
       },
     },
+
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      "import/no-unresolved": "error",
+      "import/named": "error",
+      "import/default": "error",
+
+      "import/namespace": "off",
+
+      "no-unused-vars": "warn",
     },
   },
-])
+]);
