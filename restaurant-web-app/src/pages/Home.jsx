@@ -1,4 +1,4 @@
-import { Menu, X, Phone, Mail, MapPin, Clock, Star, Award, Users, ChefHat } from 'lucide-react';
+import {Phone, MapPin, Clock, Star, Award, Users, ChefHat } from 'lucide-react';
 import heroImage from "../assets/images/hero-bg.avif";
 
 function HomePage({ setCurrentPage }) {

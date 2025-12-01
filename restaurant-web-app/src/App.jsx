@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { Menu, X, Phone, Mail, MapPin, Clock, Star, Award, Users, ChefHat } from 'lucide-react';
+import { Menu, X, Phone, Mail, MapPin, ChefHat } from 'lucide-react';
 import HomePage from './pages/Home'
 import MenuPage from './pages/MenuPage'
+import ReservationsPage from './pages/ReservationPage'
 import './App.css'
 
 function App() {

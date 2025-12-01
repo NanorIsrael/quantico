@@ -1,4 +1,3 @@
-import { Menu, X, Phone, Mail, MapPin, Clock, Star, Award, Users, ChefHat } from 'lucide-react';
 import bruschetta from "../assets/images/menu/Bruschetta.jpg";
 import saladCeasar from "../assets/images/menu/salad-recipe.jpg";
 import grilledSalmon from "../assets/images/menu/grilled-salmon.jpg";
