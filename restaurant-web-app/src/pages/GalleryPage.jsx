@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { X, ChevronLeft, ChevronRight, Award, Star, Quote } from 'lucide-react';
 import ImageGallery from '../components/ImageGallery';
+import galleryCafeInterior from '../assets/images/gallery/gallery-cafe-interior.webp';
+import gallerySpecialEvent from '../assets/images/gallery/gallery-special-event.webp';
+import galleryRibeyesteak from '../assets/images/gallery/gallery-ribeye-steak.webp';
+import homeCafeFausse from '../assets/images/gallery/home-cafe-fausse.webp';
 
 export default function RestaurantGallery() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -35,13 +39,13 @@ export default function RestaurantGallery() {
       url: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=800&q=80',
       description: 'Perfectly grilled to perfection'
     },
-    {
-      id: 5,
-      category: 'dishes',
-      title: 'Seafood Platter',
-      url: 'https://images.unsplash.com/photo-1559737558-2f5a70d6e4c5?w=800&q=80',
-      description: 'Fresh catch of the day'
-    },
+    // {
+    //   id: 5,
+    //   category: 'dishes',
+    //   title: 'Seafood Platter',
+    //   url: 'https://images.unsplash.com/photo-1559737558-2f5a70d6e4c5?w=800&q=80',
+    //   description: 'Fresh catch of the day'
+    // },
     {
       id: 6,
       category: 'dishes',
@@ -174,7 +178,38 @@ export default function RestaurantGallery() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-12">
-		<ImageGallery images={galleryImages.map(img => img.url)}/>
+		<div className='mb-6'>
+			<img
+				src={galleryCafeInterior}
+				alt={'previewing the restaurant interior'}
+				className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+        	/>
+		</div>
+		<div className='grid md:grid-cols-2 gap-2 mb-6'>
+			<figure>
+			<img
+				src={galleryRibeyesteak}
+				alt={'previewing the restaurant interior'}
+				className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+        	/>	
+			</figure>
+			<figure>
+			<img
+				src={gallerySpecialEvent}
+				alt={'previewing the restaurant interior'}
+				className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+        	/>	
+			</figure>
+		</div>
+		<div className='mb-6'>
+			<img
+				src={homeCafeFausse}
+				alt={'previewing the restaurant interior'}
+				className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+        	/>
+		</div>
+		<ImageGallery images={galleryImages}/>
+
         {/* Gallery Grid */}
         <section className="mb-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

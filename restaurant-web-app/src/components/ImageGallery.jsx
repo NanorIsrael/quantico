@@ -45,8 +45,8 @@ export default function ImageGallery({images}) {
           className={`relative group w-full`}
         >
           <img
-            src={images[previewImage]}
-            alt={`Gallery image ${previewImage}`}
+            src={images[previewImage].url}
+            alt={images[previewImage].description}
             className="w-full h-72 object-cover rounded-lg shadow-sm"
           />
           <div className="absolute inset-0 bg-transparent bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 rounded-lg flex items-center justify-center">
