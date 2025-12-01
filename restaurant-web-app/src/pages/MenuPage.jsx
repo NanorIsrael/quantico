@@ -73,7 +73,7 @@ function MenuPage() {
               </h2>
               <div className="grid gap-6">
                 {category.items.map((item, itemIdx) => (
-                  <div key={itemIdx} className="flex justify-between items-start gap-2">
+                  <div key={itemIdx} className="flex flex-col md:flex-row md:justify-between items-start gap-2">
                     <figure className='relative w-[200px] h-[120px]'>
                       <img src={images[item.image]} alt={'previewing bruschetta'} className= 'absolute inset-0 object-cover rounded-sm w-full h-full'/>
                     </figure>

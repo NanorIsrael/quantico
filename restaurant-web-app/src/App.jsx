@@ -3,6 +3,8 @@ import { Menu, X, Phone, Mail, MapPin, ChefHat } from 'lucide-react';
 import HomePage from './pages/Home'
 import MenuPage from './pages/MenuPage'
 import ReservationsPage from './pages/ReservationPage'
+import AboutPage from './pages/AboutUsPage'
+import GalleryPage from './pages/GalleryPage'
 import './App.css'
 
 function App() {
