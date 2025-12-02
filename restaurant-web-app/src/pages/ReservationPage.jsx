@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Phone, Mail } from 'lucide-react';
 import ReservationSuccessDialog from '../components/ReservationSuccessDialog'
+import { useClient } from '../api/client';
 
 function ReservationsPage() {
   const [formData, setFormData] = useState({
@@ -13,11 +14,21 @@ function ReservationsPage() {
     specialRequests: ''
   });
   const [submitted, setSubmitted] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(true);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const httpClient = useClient()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     setSubmitted(true);
+
+	const response = await httpClient.post('reservations');
+	if (response.success) {
+		setIsSuccess(true)
+		console.log('====>', response.data)
+	} else {
+		console.log('====>', response)
+	}
+
     setIsSuccess(true)
 	setTimeout(() => {
       setSubmitted(false);

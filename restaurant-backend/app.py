@@ -1,10 +1,12 @@
 from flask import Flask, request, jsonify
 from config import Config
 from models import db, Customer, Reservation
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.config.from_object(Config)
 db.init_app(app)
+CORS(app)
 
 @app.route("/")
 def home():

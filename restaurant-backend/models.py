@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import relationship
 
 db = SQLAlchemy()
 
@@ -9,6 +10,7 @@ class Customer(db.Model):
     full_name = db.Column(db.String(120), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     phone = db.Column(db.String(20), nullable=True)
+    reservations = relationship("Reservation", back_populates="customer")
 
     def __repr__(self):
         return f"<Customer {self.full_name}>"
