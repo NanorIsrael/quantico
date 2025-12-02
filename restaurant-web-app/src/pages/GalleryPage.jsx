@@ -95,14 +95,7 @@ export default function RestaurantGallery() {
       title: 'Chef\'s Tasting Menu',
       url: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80',
       description: 'Multi-course culinary experience'
-    },
-    // {
-    //   id: 13,
-    //   category: 'interior',
-    //   title: 'Indoor Illustration',
-    //   url: ``,
-    //   description: 'Indoor Illustration'
-    // }
+    }
   ];
 
   const awards = [
