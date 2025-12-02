@@ -1,4 +1,6 @@
 import { Users, Heart } from "lucide-react";
+import NewsletterSignup from "../components/NewLetter";
+
 function AboutPage() {
   const owners = [
     {
@@ -52,7 +54,7 @@ function AboutPage() {
               </div>
               <div className="p-8">
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">Chef Antonio Rossi</h3>
-                <p className="text-amber-700 font-semibold mb-4 text-lg">Co-Founder & Executive Chef</p>
+                <p className="text-amber-600 font-semibold mb-4 text-lg">Co-Founder & Executive Chef</p>
                 <div className="space-y-4 text-gray-700">
                   <p>
                     Born and raised in the heart of Tuscany, Chef Antonio Rossi brings over 25 years of culinary expertise to Café Fausse. Trained in the finest kitchens of Italy and France, Antonio's passion for authentic Italian cuisine is matched only by his innovative spirit.
@@ -76,7 +78,7 @@ function AboutPage() {
               </div>
               <div className="p-8">
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">Maria Lopez</h3>
-                <p className="text-amber-700 font-semibold mb-4 text-lg">Co-Founder & Managing Director</p>
+                <p className="text-amber-600 font-semibold mb-4 text-lg">Co-Founder & Managing Director</p>
                 <div className="space-y-4 text-gray-700">
                   <p>
                     With a background in hospitality management and a lifelong passion for creating memorable experiences, Maria Lopez is the heart and soul of Café Fausse's warm, welcoming atmosphere.
@@ -110,6 +112,8 @@ function AboutPage() {
           </div>
         </div>
       </section> */}
+
+		<NewsletterSignup/>
 	</div>
 	</div>
   )}
