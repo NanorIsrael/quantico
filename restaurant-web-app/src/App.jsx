@@ -5,6 +5,8 @@ import MenuPage from './pages/MenuPage'
 import ReservationsPage from './pages/ReservationPage'
 import AboutPage from './pages/AboutUsPage'
 import GalleryPage from './pages/GalleryPage'
+import { Toaster } from 'sonner';
+
 import './App.css'
 
 function App() {
@@ -100,10 +102,21 @@ function App() {
           )}
         </div>
       </nav>
-
+      <Toaster
+                    duration={4500}
+                    position="top-right"
+                    toastOptions={{
+                      classNames: {
+                        //  toast: 'bg-white shadow-lg rounded-lg p-4',
+                        success: '!text-primary  border-2',
+                        error: '!text-red-600  border-2',
+                        warning: '!text-yellow-600  border-2',
+                      },
+                    }}
+                  />
       {/* Page Content */}
       <main>{renderPage()}</main>
-
+      
       {/* Footer */}
       <footer className="bg-stone-900 text-white mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

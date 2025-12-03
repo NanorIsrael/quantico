@@ -1,4 +1,4 @@
-(https://quantico-bistro.netlify.app/)[preview here]
+[preview here](https://quantico-bistro.netlify.app/)
 
 
 <!-- 

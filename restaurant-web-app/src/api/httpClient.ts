@@ -74,7 +74,6 @@ class HTTPClient implements IHTTPClient {
       };
 
       const response = await fetch(`${this.base_url}/${url}`, requestOptions);
-	  console.log('response', await response.text())
       if (!response.ok) {
         let errorBody: any;
         try {
@@ -82,18 +81,16 @@ class HTTPClient implements IHTTPClient {
         } catch {
           errorBody = await response.text();
         }
+		console.log('responseData', errorBody)
         return { success: false, error: errorBody };
       }
-
-      // 👇 handle blob download or json based on responseType
-      const isBlob = xheaders?.responseType === 'blob';
-      const responseData = isBlob
-        ? await response.blob()
-        : await response.json();
+      	const responseData = await await response.json();
+		console.log('responseData', responseData)
 
       return { success: true, data: responseData };
     } catch (error: any) {
-      return { success: false, error };
+
+      	return { success: false, error };
     }
   }
 
@@ -129,15 +126,8 @@ class HTTPClient implements IHTTPClient {
 export default HTTPClient;
 
 export function errorHandler(error: any) {
-  if (error?.errors?.length > 0) {
-    if (
-      error?.errors[0].code === 401 && 
-      window.location.pathname !== '/sign-in'
-    ) {
-      window.location.href = '/sign-in';
-      return;
-    }
-    toast.error(error?.errors[0].message);
+  if (error) {
+    toast.error(error);
   } else {
     toast.error('Something went wrong. Please try again later.');
   }

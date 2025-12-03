@@ -1,7 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Phone, Mail } from 'lucide-react';
 import ReservationSuccessDialog from '../components/ReservationSuccessDialog'
 import { useClient } from '../api/client';
+import { toast } from 'sonner';
+import LoadingSpinner from '../components/LoadingSpinner';
+import { to12Hour } from '../lib/util';
 
 function ReservationsPage() {
   const [formData, setFormData] = useState({
@@ -15,22 +18,23 @@ function ReservationsPage() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [slots, setSlots] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const httpClient = useClient()
+  const isSunday = new Date(formData.date).toLocaleDateString('en-US', {weekday: 'long'})
+                  .toLowerCase() === 'sunday';
+  const today = new Date();
+  const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
+  .toISOString()
+  .split("T")[0]; 
 
   const handleSubmit = async(e) => {
     e.preventDefault();
     setSubmitted(true);
 
-	const response = await httpClient.post('reservations');
+	const response = await httpClient.post('reservations', formData);
 	if (response.success) {
-		setIsSuccess(true)
-		console.log('====>', response.data)
-	} else {
-		console.log('====>', response)
-	}
-
-    setIsSuccess(true)
-	setTimeout(() => {
+		setTimeout(() => {
       setSubmitted(false);
       setFormData({
         name: '',
@@ -41,7 +45,13 @@ function ReservationsPage() {
         guests: '2',
         specialRequests: ''
       });
-    }, 3000);
+      setIsSuccess(true)
+    }, 300);
+		toast.success(response.data.message)
+	} else {
+		toast.success(response.error.message)
+	}
+	
   };
 
   const handleChange = (e) => {
@@ -50,6 +60,28 @@ function ReservationsPage() {
       [e.target.name]: e.target.value
     });
   };
+
+  useEffect(() => {
+    setIsLoading(true)
+    const fetchTimeSlots = async () => {
+      try {
+        const response = await httpClient.get(`slots${(formData.date).length > 0 ? `?date=${formData.date}`: ''}`);
+        if (response.success) {
+          console.log('response.data', response.data.data)
+          setSlots(response.data.data)
+        } else {
+          setSlots([])
+        }
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchTimeSlots()
+  }, [formData.date])
+
+  if (!slots) {
+    return <LoadingSpinner text="Loading page contents..."/>
+  }
 
   return (
     <div className="py-16">
@@ -136,6 +168,7 @@ function ReservationsPage() {
                     name="date"
                     value={formData.date}
                     onChange={handleChange}
+                    min={localDate}
                     required
                     className="w-full px-4 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                   />
@@ -152,22 +185,8 @@ function ReservationsPage() {
                     required
                     className="w-full px-4 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                   >
-                    <option value="">Select a time</option>
-                   
-                    <option value="13:00">5:00 PM</option>
-                    <option value="13:30">5:30 PM</option>
-                    <option value="14:00">2:00 PM</option>
-                    <option value="18:00">6:00 PM</option>
-                    <option value="18:30">6:30 PM</option>
-                    <option value="19:00">7:00 PM</option>
-                    <option value="19:30">7:30 PM</option>
-                    <option value="20:00">8:00 PM</option>
-                    <option value="20:30">8:30 PM</option>
-                    <option value="21:00">9:00 PM</option>
-					<option value="11:00">11:00 AM</option>
-                    <option value="11:30">11:30 AM</option>
-                    <option value="12:00">12:00 PM</option>
-                    <option value="12:30">12:30 PM</option>
+                    <option value="">{slots.length > 0 ? 'Select a time' : 'No time slots available for selected date'}</option>
+                    {(isSunday ? slots.slice(0, 5) : slots).map(slot => <option key={slot} value={slot}>{to12Hour(slot)}</option>)}
                   </select>
                 </div>
               </div>
