@@ -8,3 +8,6 @@ def is_in(x: str, y: str) -> bool:
 
 
 print(is_in("Aaron", "Aron city"))
+
+from random import choices
+print(f"{''.join(str(num) for num in choices(range(10), k=3))}")
