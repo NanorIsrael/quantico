@@ -22,3 +22,51 @@ collection of quantico labs sessions
 |   ElectricCar      |       |   ElectricBike     |
 +--------------------+       +--------------------+
 | + getType():String |       | + getType():String
+
+
+
+
+        +----------------------+
+        |   ElectricVehicle    |
+        +----------------------+
+        | - type_strategy      |
+        +----------------------+
+        | + getType()          |
+        +----------------------+
+                  |
+                  v
+      <<interface>> VehicleTypeStrategy
+                  ▲
+          +---------------+   +-------------------+
+          |    CarType    |   |  MotorcycleType   |
+          +---------------+   +-------------------+
+
+
+
+
+
+                +----------------------+
+                |   ElectricVehicle    |
+                +----------------------+
+                | - regnum: String     |
+                | - make: String       |
+                | - model: String      |
+                | - color: String      |
+                | - charge: int        |
+                +----------------------+
+                | + getMake(): String  |
+                | + getModel(): String |
+                | + getColor(): String |
+                | + getRegNum(): String|
+                | + setCharge(int): void |
+                | + getCharge(): int   |
+                +----------------------+
+                     ▲            ▲
+                     |            |
+        +------------------+  +------------------+
+        |   ElectricCar    |  |  ElectricBike    |
+        +------------------+  +------------------+
+        |                  |  |                  |
+        +------------------+  +------------------+
+        | + getType(): String| | + getType(): String|
+        +------------------+  +------------------+

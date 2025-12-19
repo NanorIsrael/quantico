@@ -71,22 +71,66 @@
 
 
 
-from parkingLot.factory.Vehicle import ElectricCarFactory, ElectricVehicleFactory
+# from parkingLot.factory.Vehicle import ElectricCarFactory, ElectricVehicleFactory
 
 
-def register_vehicle(factory: ElectricVehicleFactory):
-    vehicle = factory.create_vehicle(
-        regnum="EV-123",
-        make="Tesla",
-        model="Model 3",
-        color="Red"
-    )
-    vehicle.setCharge(80)
+# def register_vehicle(factory: ElectricVehicleFactory):
+#     vehicle = factory.create_vehicle(
+#         regnum="EV-123",
+#         make="Tesla",
+#         model="Model 3",
+#         color="Red"
+#     )
+#     vehicle.setCharge(80)
 
-    print(vehicle.getType())
-    print(vehicle.getMake(), vehicle.getModel())
-    print("Charge:", vehicle.getCharge())
+#     print(vehicle.getType())
+#     print(vehicle.getMake(), vehicle.getModel())
+#     print("Charge:", vehicle.getCharge())
 
-register_vehicle(ElectricCarFactory())
+# register_vehicle(ElectricCarFactory())
 
 
+from Architecture.parkingLot.strategy import Vehicle
+from Architecture.parkingLot.strategy.ElectricVehicle import CarType, ElectricVehicle, MotorcycleType
+
+
+car = ElectricVehicle(
+    "GR-1234",
+    "Tesla",
+    "Model 3",
+    "Red",
+    CarType()
+)
+
+bike = ElectricVehicle(
+    "GR-5678",
+    "Zero",
+    "SR/F",
+    "Black",
+    MotorcycleType()
+)
+
+print(car.getType())   # Car
+print(bike.getType())  # Motorcycle
+print(bike.getMake())  # Motorcycle
+
+
+
+car = Vehicle(
+    regnum="GT-1234-21",
+    make="Toyota",
+    model="Corolla",
+    color="Red",
+    vehicle_type=CarType()
+)
+
+truck = Vehicle(
+    regnum="AS-4567-22",
+    make="Volvo",
+    model="FH",
+    color="Blue",
+    vehicle_type=Vehicle.TruckType()
+)
+
+print(car.type())    # Car
+print(truck.type()) # Truck
