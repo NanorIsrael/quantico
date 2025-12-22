@@ -52,7 +52,7 @@ class Vehicle:
         return self._color
 
     @property
-    def regNum(self) -> str:
+    def regnum(self) -> str:
         return self._regnum
 
     def type(self) -> str:

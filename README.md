@@ -70,3 +70,32 @@ collection of quantico labs sessions
         +------------------+  +------------------+
         | + getType(): String| | + getType(): String|
         +------------------+  +------------------+
+
+
+
+
+
+
+ParkingLot
+--------------------------------
+- capacity: int
+- evCapacity: int
+- level: int
+- slotid: int
+- slotEvId: int
+- numOfOccupiedSlots: int
+- numOfOccupiedEvSlots: int
+- slots: List<Vehicle>
+- evSlots: List<ElectricVehicle>
+
+
++ createParkingLot(capacity: int, evCapacity: int, level: int): int
++ park(regnum, make, model, color, ev, motor): int
++ leave(slotId: int, ev: int): boolean
++ edit(slotId, regnum, make, model, color, ev): boolean
++ status(): void
++ chargeStatus(): void
+
++ getSlotNumFromRegNum(regnum): int
++ getSlotNumFromColor(color): List<String>
++ getRegNumFromColor(color): List<String>
