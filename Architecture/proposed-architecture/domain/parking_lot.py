@@ -1,7 +1,6 @@
 from typing import Any, List, Optional, Dict, Tuple
-from Vehicle import Vehicle, CarType as VCarType, MotorcycleType as VMotorcycleType
-from ElectricVehicle import ElectricVehicle, CarType, MotorcycleType
-
+from domain.electric_vehicle import ElectricVehicle
+from domain.vehicle import Vehicle
 
 class ParkingLot:
     """
@@ -31,16 +30,16 @@ class ParkingLot:
 
     def _find_slots_by_attr(self, slots: List[Optional[object]], attr: str, value):
         return [
-            index + 1
+            str(index + 1)
             for index, vehicle in enumerate(slots)
-            if vehicle is not None and getattr(vehicle, attr) == value
+            if vehicle is not None and getattr(vehicle, attr).lower() == value.lower()
         ]
 
     def _find_regnum_by_attr(self, slots: List[Optional[object]], attr: str, value):
         return [
             vehicle.regnum
             for vehicle in slots
-            if vehicle is not None and getattr(vehicle, attr) == value
+            if vehicle is not None and getattr(vehicle, attr).lower() == value.lower()
         ]
 
 

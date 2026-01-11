@@ -20,7 +20,7 @@ class Vehicle(ABC):
         return self._color
 
     @property
-    def regNum(self) -> str:
+    def regnum(self) -> str:
         return self._regnum
 
     @abstractmethod
@@ -57,20 +57,20 @@ class VehicleFactory(ABC):
         pass
 
 class CarFactory(VehicleFactory):
-    def create_vehicle(self, regnum, make, model, color) -> Vehicle:
+    def create_vehicle(self, regnum: str, make: str, model: str, color: str) -> Vehicle:
         return Car(regnum, make, model, color)
 
 
 class TruckFactory(VehicleFactory):
-    def create_vehicle(self, regnum, make, model, color) -> Vehicle:
+    def create_vehicle(self, regnum: str, make: str, model: str, color: str) -> Vehicle:
         return Truck(regnum, make, model, color)
 
 
 class MotorcycleFactory(VehicleFactory):
-    def create_vehicle(self, regnum, make, model, color) -> Vehicle:
+    def create_vehicle(self, regnum: str, make: str, model: str, color: str) -> Vehicle:
         return Motorcycle(regnum, make, model, color)
 
 
 class BusFactory(VehicleFactory):
-    def create_vehicle(self, regnum, make, model, color) -> Vehicle:
+    def create_vehicle(self, regnum: str, make: str, model: str, color: str) -> Vehicle:
         return Bus(regnum, make, model, color)

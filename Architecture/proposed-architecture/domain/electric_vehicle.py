@@ -10,34 +10,25 @@ class CarType(VehicleTypeStrategy):
         return "Car"
 
 
-class TruckType(VehicleTypeStrategy):
-    def type(self) -> str:
-        return "Truck"
-
-
 class MotorcycleType(VehicleTypeStrategy):
     def type(self) -> str:
         return "Motorcycle"
 
-
-class BusType(VehicleTypeStrategy):
-    def type(self) -> str:
-        return "Bus"
-
-class Vehicle:
+class ElectricVehicle:
     def __init__(
         self,
         regnum: str,
         make: str,
         model: str,
         color: str,
-        vehicle_type: VehicleTypeStrategy
+        type_strategy: VehicleTypeStrategy
     ):
         self._regnum = regnum
         self._make = make
         self._model = model
         self._color = color
-        self._vehicle_type = vehicle_type
+        self._charge = 0
+        self._type_strategy = type_strategy
 
     @property
     def make(self) -> str:
@@ -55,5 +46,18 @@ class Vehicle:
     def regnum(self) -> str:
         return self._regnum
 
-    def type(self) -> str:
-        return self._vehicle_type.type()
+    @property
+    def charge(self) -> str:
+        return self._charge
+
+    @charge.setter
+    def charge(self, charge):
+        self.charge = charge
+
+    @property
+    def type_strategy(self):
+        return self._type_strategy.type()
+
+    @type_strategy.setter
+    def type_strategy(self, strategy: VehicleTypeStrategy):
+        self._type_strategy = strategy

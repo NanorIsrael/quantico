@@ -1,7 +1,8 @@
 from typing import Any, Dict, List, Tuple
-from ParkingLot import ParkingLot
+from domain.parking_lot import ParkingLot
+from domain.services.vehicle_assembler import VehicleAssembler
 
-class ParkingController:
+class ParkingManager:
     """
         Controller layer:
         - Coordinates between UI and domain
@@ -9,9 +10,9 @@ class ParkingController:
         - Returns structured data only
     """
 
-    def __init__(self, parking_lot: ParkingLot):
+    def __init__(self, parking_lot: ParkingLot, vehicle_assembler: VehicleAssembler):
         self._parking_lot = parking_lot
-
+        self._vehicle_assembler = vehicle_assembler
     # ----------------------------
     # Lot management
     # ----------------------------
@@ -28,18 +29,19 @@ class ParkingController:
     # Parking operations
     # ----------------------------
 
-    def park_vehicle(self, vehicle, is_ev: bool) -> str:
-        slot = self._parking_lot.park(vehicle, is_ev)
+    def park_vehicle(self, data: dict) -> Dict[str, Any]:
+        vehicle = self._vehicle_assembler.create(data["vehicle"], data["vehicle_kind"], data['is_ev'])
+        slot = self._parking_lot.park(vehicle, data['is_ev'])
 
         return {
             "success": slot is not None,
-            "slot": slot,
-            "is_ev": is_ev,
+            "slot": slot
         }
 
-    def remove_vehicle(self, slot: int, is_ev: bool) -> str:    
+    def remove_vehicle(self, slot: int, is_ev: bool) -> str:
+        result = self._parking_lot.leave(slot, is_ev)
         return {
-            "success": self._parking_lot.leave(slot, is_ev),
+            "success": result,
             "slot": slot,
         }
 

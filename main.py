@@ -74,63 +74,81 @@
 # from parkingLot.factory.Vehicle import ElectricCarFactory, ElectricVehicleFactory
 
 
-# def register_vehicle(factory: ElectricVehicleFactory):
-#     vehicle = factory.create_vehicle(
-#         regnum="EV-123",
-#         make="Tesla",
-#         model="Model 3",
-#         color="Red"
-#     )
-#     vehicle.setCharge(80)
+# # def register_vehicle(factory: ElectricVehicleFactory):
+# #     vehicle = factory.create_vehicle(
+# #         regnum="EV-123",
+# #         make="Tesla",
+# #         model="Model 3",
+# #         color="Red"
+# #     )
+# #     vehicle.setCharge(80)
 
-#     print(vehicle.getType())
-#     print(vehicle.getMake(), vehicle.getModel())
-#     print("Charge:", vehicle.getCharge())
+# #     print(vehicle.getType())
+# #     print(vehicle.getMake(), vehicle.getModel())
+# #     print("Charge:", vehicle.getCharge())
 
-# register_vehicle(ElectricCarFactory())
-
-
-from Architecture.parkingLot.strategy import Vehicle
-from Architecture.parkingLot.strategy.ElectricVehicle import CarType, ElectricVehicle, MotorcycleType
+# # register_vehicle(ElectricCarFactory())
 
 
-car = ElectricVehicle(
-    "GR-1234",
-    "Tesla",
-    "Model 3",
-    "Red",
-    CarType()
-)
-
-bike = ElectricVehicle(
-    "GR-5678",
-    "Zero",
-    "SR/F",
-    "Black",
-    MotorcycleType()
-)
-
-print(car.getType())   # Car
-print(bike.getType())  # Motorcycle
-print(bike.getMake())  # Motorcycle
+# from Architecture.parkingLot.strategy import Vehicle
+# from Architecture.parkingLot.strategy.ElectricVehicle import CarType, ElectricVehicle, MotorcycleType
 
 
+# car = ElectricVehicle(
+#     "GR-1234",
+#     "Tesla",
+#     "Model 3",
+#     "Red",
+#     CarType()
+# )
 
-car = Vehicle(
-    regnum="GT-1234-21",
-    make="Toyota",
-    model="Corolla",
-    color="Red",
-    vehicle_type=CarType()
-)
+# bike = ElectricVehicle(
+#     "GR-5678",
+#     "Zero",
+#     "SR/F",
+#     "Black",
+#     MotorcycleType()
+# )
 
-truck = Vehicle(
-    regnum="AS-4567-22",
-    make="Volvo",
-    model="FH",
-    color="Blue",
-    vehicle_type=Vehicle.TruckType()
-)
+# print(car.getType())   # Car
+# print(bike.getType())  # Motorcycle
+# print(bike.getMake())  # Motorcycle
 
-print(car.type())    # Car
-print(truck.type()) # Truck
+
+
+# car = Vehicle(
+#     regnum="GT-1234-21",
+#     make="Toyota",
+#     model="Corolla",
+#     color="Red",
+#     vehicle_type=CarType()
+# )
+
+# truck = Vehicle(
+#     regnum="AS-4567-22",
+#     make="Volvo",
+#     model="FH",
+#     color="Blue",
+#     vehicle_type=Vehicle.TruckType()
+# )
+
+# print(car.type())    # Car
+# print(truck.type()) # Truck
+test = [1,0,0,1,0,1]
+
+def sol(n, c):
+	res = -1
+	ones_count = n.count(1)
+	if ones_count < c:
+		return res
+	if c <= 1:
+		return res
+	current_ones = sum(n[:c])
+	max_ones = current_ones
+
+	for i in range(c, len(n)):
+		print(current_ones - n[i - c] + n[i])
+
+
+	
+sol(test, 2)
